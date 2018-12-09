@@ -107,23 +107,7 @@
                 type: 'info',
                 message: '修改成功'
               });
-              this.$axios.get("/api/loadadmin.do")
-                .then((res) => {
-                  console.log(res.data);
-                  var productData = res.data.map(function (item) {
-                    return {
-                      name: item.a_name,
-                      age: item.a_age,
-                      levels: item.a_levels,
-                      aenter: item.a_enter.split("T")[0],
-                      phone: item.a_phone,
-                      address: item.a_address
-                    }
-                  });
-                  this.tableData = productData;
-                  this.total = this.tableData.length;
-                  console.log(this.tableData[0].address)
-                });
+              this.$router.go(0)
             });
         }
       }).catch(() => {
@@ -171,24 +155,7 @@
               $(".ymm").val("");
               $(".xmm").val("");
               $(".qrmm").val("");
-              this.$axios.get("/api/loadadmin.do")
-                .then((res) => {
-                  console.log(res.data);
-                  var productData = res.data.map(function (item) {
-                    return {
-                      name: item.a_name,
-                      age: item.a_age,
-                      levels: item.a_levels,
-                      aenter: item.a_enter.split("T")[0],
-                      phone: item.a_phone,
-                      address: item.a_address,
-                      pwd: item.a_pwd
-                    }
-                  });
-                  this.tableData = productData;
-                  this.total = this.tableData.length;
-                  console.log(this.tableData[0].pwd)
-                });
+              this.$router.go(0);
             })
         }
 
