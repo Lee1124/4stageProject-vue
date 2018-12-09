@@ -26,10 +26,11 @@
       </el-table-column>
       <!--客户ID-->
       <el-table-column
+        id="wq"
         align="center"
         label="客户ID"
         min-width="30">
-        <template slot-scope="scope">
+        <template slot-scope="scope" id="qe">
           <!--<i class="el-icon-time"></i>-->
           <span>{{ scope.row.id }}</span>
         </template>
@@ -93,13 +94,16 @@
       <!--操作-->
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <div class="btnBox clearfix" style="width: 130px;margin: 0px auto">
+          <div class="btnBox clearfix" style="width: 190px;margin: 0px auto">
             <!--查看-->
             <lookBtn btntext="查看" btnclass="chakan" @btnEvent="lookOver(scope.$index, scope.row)"
                      class="lookBtn"></lookBtn>
             <!--编辑-->
             <editBtn btntext="编辑" btnclass="bianji" @btnEvent="productEdit(scope.$index, scope.row)"
                      class="editBtn" style="margin-left: 10px"></editBtn>
+            <!--赠送-->
+            <deleteBtn btntext="赠送" btnclass="shanchu"  @btnEvent="zsQuan(scope.$index, scope.row)"
+                       class="deleteBtn"></deleteBtn>
           </div>
 
         </template>
@@ -141,7 +145,95 @@
     cellStyle() {
       return 'font-size:12px;color:#684029;padding:0;height:45px'
     },
+    zsQuan(index, row) {
+      // console.log(this.tableData2);
+      var id=row.id;
+      console.log(id);
 
+      this.$alert('<form action="" id="productForm7">\n' +
+
+        '    <label class="xingming">姓名:</label>\n' +
+        '    <input type="text" placeholder="输入接收人姓名" id="quanName">\n' +
+        '    <br>\n' +
+        '    <label class="xinbie">卷号:</label>\n' +
+        '    <input type="text" placeholder="输入卷号" id="juanhao">\n' +
+        '    <br>\n' +
+        '    <label class="zhu">卷名:</label>\n' +
+        '    <input type="text" placeholder="输入券名" id="zhuzhi">\n' +
+        '    <br>\n' +
+        '    <div class="miaoshu clearfix">\n' +
+        '        <span>描述:</span>\n' +
+        '        <textarea  style="resize: none" placeholder="输入优惠券描述" id="miaoshu"></textarea>\n' +
+        '    </div>\n' +
+        '     <label>生效时间:</label>\n' +
+        '    <input type="text" placeholder="输入生效时间（年-月-日）" id="shengri">\n' +
+        '    <br>\n' +
+        '     <label class="vipp">失效时间:</label>\n' +
+        '    <input type="text" placeholder="输入失效时间（年-月-日）" id="vip">\n' +
+        '    <br>\n' +
+        '</form>','赠送优惠券', {
+        dangerouslyUseHTMLString: true,
+        showCancelButton:true,
+        customClass:'youhuijuan',
+      }).then(() => {
+        var name=$("#quanName").val();
+
+         console.log(name);
+
+        var juanhao=$("#juanhao").val();
+        var zhuzhi=$("#zhuzhi").val();
+        var miaoshu=$("#miaoshu").val();
+        var shengri=$("#shengri").val();
+        var vip=$("#vip").val();
+        if (name=="") {
+          this.$message({
+            type: 'info',
+            message: '请输入接收人姓名'
+          });
+        }else if (juanhao=="") {
+          this.$message({
+            type: 'info',
+            message: '请输入接收人姓名'
+          });
+        } else if (zhuzhi=="") {
+          this.$message({
+            type: 'info',
+            message: '请输入券名'
+          });
+        }else if (miaoshu=="") {
+          this.$message({
+            type: 'info',
+            message: '请输入描述'
+          });
+        }
+        else if (shengri=="") {
+          this.$message({
+            type: 'info',
+            message: '请输入生效时间'
+          });
+        }
+        else if (vip=="") {
+          this.$message({
+            type: 'info',
+            message: '请输入失效时间'
+          });
+        }else{
+          this.$axios.post("/api/changeQuanNews.do", {
+            val0: name, val1: juanhao,
+            val2: zhuzhi, val3: miaoshu, val4: shengri,val5: vip
+          })
+            .then((res) => {
+              // console.log(res.data)
+              this.$message({
+                type: 'info',
+                message: '赠送成功'
+              });
+            })
+        }
+      }).catch(() => {
+
+      });
+    },
     lookOver(index, row) {
       console.log(row);
       var name=row.name,id=row.id,sex=row.sex,dizhi=row.dizhi,birthday=row.birthday,phone=row.phone,vip=row.vip,jiname=row.jiname,jiguanxi=row.jiguanxi,jidata=row.jidata,jiphone=row.jiphone;
@@ -452,5 +544,9 @@
       left: 24%;
     }
   }
-
+#quanName{
+  margin-left: 15px;
+  margin-bottom: 15px;
+  width: 250px;
+}
 </style>

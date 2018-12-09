@@ -56,7 +56,6 @@
       delLogin() {
         this.$axios.post("/api/deleteLogin.do", {u_id: u_id})
           .then((res) => {
-            this.$router.push("/login");
             this.$router.go(0);
             localStorage.removeItem('id');
           });

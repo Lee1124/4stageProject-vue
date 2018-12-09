@@ -290,7 +290,7 @@
         /*加载数据库的商品*/
         this.$axios.get("/api/loadShopCarNews.do")
           .then((res) => {
-            // console.log(res.data)
+            console.log(res.data)
             var productData = res.data.map(function (item) {
               return {
                 u_id: item.u_id,

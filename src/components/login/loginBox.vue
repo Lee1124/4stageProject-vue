@@ -80,7 +80,6 @@
                   .then((res) => {
                     console.log("请求成功后的回调函数执行2");
                     localStorage.setItem('id',u_id);
-                    this.$router.push('/');
                     this.$router.go(0);
                   })
               }
