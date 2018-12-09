@@ -1,17 +1,18 @@
 <template>
   <el-row class="tac" style="overflow-x: hidden">
     <div style="width: 259px;border-right: solid 1px #e6e6e6;">
-      <div class="img">
+      <div class="img" v-for="item in dataArr">
         <div class="img-1">
         </div>
-        <p class="p1">David Grey.H</p>
-        <p class="p2">Project Manager</p>
+        <p class="p1">{{item.name}}</p>
+        <p class="p2">{{item.type}}</p>
         <img src="../../assets/lo.png" alt="" class="myImg">
       </div>
     </div>
     <el-col :span="5">
-      <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="white"
-        text-color="grey" active-text-color="grey" router>
+      <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+               background-color="white"
+               text-color="grey" active-text-color="grey" router>
         <!--数据统计-->
         <el-menu-item index="/" class="cedao liHover">
           <i class="el-icon-menu"></i>
@@ -24,9 +25,12 @@
             <span class="tg">商品管理</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="/product" class="liHover"><i class="el-icon-arrow-right r1"></i><span class="s1">商品信息管理</span></el-menu-item>
-            <el-menu-item index="/shopCar" class="liHover"><i class="el-icon-arrow-right r2"></i><span class="s1">购物车管理</span></el-menu-item>
-            <el-menu-item index="/order" class="liHover"><i class="el-icon-arrow-right r3"></i><span class="s1">订单管理</span></el-menu-item>
+            <el-menu-item index="/product" class="liHover"><i class="el-icon-arrow-right r1"></i><span
+              class="s1">商品信息管理</span></el-menu-item>
+            <el-menu-item index="/shopCar" class="liHover"><i class="el-icon-arrow-right r2"></i><span
+              class="s1">购物车管理</span></el-menu-item>
+            <el-menu-item index="/order" class="liHover"><i class="el-icon-arrow-right r3"></i><span
+              class="s1">订单管理</span></el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <!--客户管理-->
@@ -36,8 +40,10 @@
             <span class="tg">客户管理</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="/client" class="liHover"><i class="el-icon-arrow-right r1"></i><span class="s1">客户信息管理</span></el-menu-item>
-            <el-menu-item index="/discount" class="liHover"><i class="el-icon-arrow-right r2"></i><span class="s1">优惠券管理</span></el-menu-item>
+            <el-menu-item index="/client" class="liHover"><i class="el-icon-arrow-right r1"></i><span
+              class="s1">客户信息管理</span></el-menu-item>
+            <el-menu-item index="/discount" class="liHover"><i class="el-icon-arrow-right r2"></i><span
+              class="s1">优惠券管理</span></el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <!--员工管理-->
@@ -52,8 +58,10 @@
             <span class="tg">公告管理</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="/release" class="liHover"><i class="el-icon-arrow-right r4"></i><span class="s1">发布公告</span></el-menu-item>
-            <el-menu-item index="/see" class="liHover"><i class="el-icon-arrow-right r4"></i><span class="s1">查看公告</span></el-menu-item>
+            <el-menu-item index="/release" class="liHover"><i class="el-icon-arrow-right r4"></i><span
+              class="s1">发布公告</span></el-menu-item>
+            <el-menu-item index="/see" class="liHover"><i class="el-icon-arrow-right r4"></i><span
+              class="s1">查看公告</span></el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <!--企业联系-->
@@ -71,6 +79,8 @@
   </el-row>
 </template>
 <script>
+  var u_id=localStorage.getItem('id');
+  console.log(u_id)
   export default {
     methods: {
       handleOpen(key, keyPath) {
@@ -79,94 +89,131 @@
       handleClose(key, keyPath) {
         console.log(key, keyPath);
       }
+    },
+    data(){
+      return{
+        dataArr:[]
+      }
+    },
+    created() {
+      /*加载数据库的商品*/
+      this.$axios.get("/api/loadAdmin.do", {params: {u_id: u_id}})
+        .then((res) => {
+          console.log(res.data)
+          var dataArr = res.data.map(function (item) {
+            return {
+              name: item.a_name,
+              type: item.a_levels
+            }
+          });
+          this.dataArr = dataArr;
+        });
     }
   }
 </script>
 <style>
-  .myImg{
+  .myImg {
     position: absolute;
     top: 40px;
-    left: 210px;
+    left: 200px;
   }
-  .img{
+
+  .img {
     width: 260px;
     height: 90px;
     position: relative;
   }
-  .img-1{
-    width: 50px;
-    height: 50px;
-    background-image: url("../../assets/person.png");
+
+  .img-1 {
+    width: 40px;
+    height: 40px;
+    background-image: url("../../assets/user.png");
+    background-size: 100%;
     position: absolute;
-    top: 15px;
-    left: 20px;
+    top: 28px;
+    left: 36px;
     border-radius: 50%;
   }
-  .p1{
+
+  .p1 {
     position: absolute;
     margin-top: 30px;
     margin-left: 100px;
     font-weight: bold;
     font-size: 14px;
   }
-  .p2{
+
+  .p2 {
     position: absolute;
     margin-top: 50px;
     margin-left: 100px;
     font-size: 12px;
     color: grey;
   }
+
   .el-submenu__icon-arrow {
-    right:15px;
+    right: 15px;
     font-size: 16px;
   }
-  .el-icon-arrow-right{
+
+  .el-icon-arrow-right {
     margin-left: 10px;
   }
-  .s1{
+
+  .s1 {
     display: inline-block;
     margin-left: 7px;
   }
-  span{
+
+  span {
     font-size: 14px;
   }
-  .el-col{
+
+  .el-col {
     width: 260px;
   }
-  .cedao{
+
+  .cedao {
     margin-left: -70px;
   }
 
   .liHover:hover,
-  .el-submenu__title:hover
-  {
+  .el-submenu__title:hover {
     background-color: #f5f7fa !important;
   }
-  .tg{
+
+  .tg {
     margin-left: 25px;
   }
-  .cedao:hover .tg{
+
+  .cedao:hover .tg {
     color: #bb9772;
   }
-  .el-icon-arrow-down{
+
+  .el-icon-arrow-down {
     margin-right: 30px;
   }
-  .el-submenu .el-menu-item{
+
+  .el-submenu .el-menu-item {
     padding: 0 0;
   }
+
   /*.r1{*/
-    /*margin-right: 10px;*/
+  /*margin-right: 10px;*/
   /*}*/
-  .r2{
+  .r2 {
     margin-left: -5px;
   }
-  .r3{
+
+  .r3 {
     margin-left: -20px;
   }
-  .r4{
+
+  .r4 {
     margin-left: -13px;
   }
-  .el-menu-item-group:first-child{
+
+  .el-menu-item-group:first-child {
     margin-top: -10px;
   }
 
