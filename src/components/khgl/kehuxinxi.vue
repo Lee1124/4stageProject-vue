@@ -1,4 +1,3 @@
-
 <template>
   <div id="app">
     <div class="table_topNav">
@@ -126,7 +125,6 @@
 
   </div>
 
-
 </template>
 
 
@@ -148,12 +146,14 @@
     zsQuan(index, row) {
       // console.log(this.tableData2);
       var id=row.id;
-      console.log(id);
+      var name=row.name;
+      console.log(name);
 
+      // language=HTML
       this.$alert('<form action="" id="productForm7">\n' +
 
         '    <label class="xingming">姓名:</label>\n' +
-        '    <input type="text" placeholder="输入接收人姓名" id="quanName">\n' +
+        '    <input type="text" readonly id="quanName" value='+name+'>\n' +
         '    <br>\n' +
         '    <label class="xinbie">卷号:</label>\n' +
         '    <input type="text" placeholder="输入卷号" id="juanhao">\n' +
@@ -466,6 +466,11 @@
     visibility: hidden;
   }
 
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
   .el-table--fit {
     border-radius: 5px;
   }
@@ -547,6 +552,6 @@
 #quanName{
   margin-left: 15px;
   margin-bottom: 15px;
-  width: 250px;
+  width: 246px;
 }
 </style>
