@@ -79,7 +79,7 @@
   </el-row>
 </template>
 <script>
-  var u_id=localStorage.getItem('id');
+  var u_id = localStorage.getItem('id');
   console.log(u_id)
   export default {
     methods: {
@@ -90,9 +90,9 @@
         console.log(key, keyPath);
       }
     },
-    data(){
-      return{
-        dataArr:[]
+    data() {
+      return {
+        dataArr: []
       }
     },
     created() {
