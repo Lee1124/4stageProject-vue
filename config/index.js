@@ -12,8 +12,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api':{
-        target:'http://172.16.6.24:8888/',//修改目标
-        // target:'http://192.168.31.114:8888/',//修改目标
+        // target:'http://172.16.6.24:8888/',//修改目标
+        target:'http://192.168.31.114:8888/',//修改目标
         changeOrigin:true,//修改目标
         pathRewrite:{//路径重写
           '^/api':""
