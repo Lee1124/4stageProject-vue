@@ -9,25 +9,25 @@
           <span ref="timeBox"></span>
         </li>
         <li>
-          <div class="personImg">
-            <img src="../../assets/images/photo.png" alt="">
-          </div>
+          <div class="personImg"></div>
           <div class="dropdownMenu" @mouseenter="showAndHide($event)" @mouseleave="hideAndShow($event)">
-            <span class="el-dropdown-link">
-              <span class="p_name">花儿乐队</span>
-              <span class="p_tp">超级管理员</span>
+            <span class="el-dropdown-link" v-for="item in dataArr">
+              <span class="p_name">{{item.name}}</span>
+              <span class="p_tp">{{item.type}}</span>
               <i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <dl class="sonMenu">
               <span></span>
-              <dd> <router-link to="/grzx" style="text-decoration: none;color: #684029;display: block">个人中心</router-link></dd>
+              <dd>
+                <router-link to="/grzx" style="text-decoration: none;color: #684029;display: block">个人中心</router-link>
+              </dd>
               <dd @click="delLogin">切换用户</dd>
               <dd @click="delLogin">退出登录</dd>
             </dl>
           </div>
         </li>
         <li>
-          <!--<i class="el-icon-bell"></i>-->
+
         </li>
       </ul>
     </nav>
@@ -40,7 +40,7 @@
   var u_id = localStorage.getItem('id');
   export default {
     name: "topnav",
-    mounted () {
+    mounted() {
       this.init();
     },
     methods: {
@@ -60,12 +60,14 @@
             localStorage.removeItem('id');
           });
       },
-      init(){
+
+      init() {
         var myTime;
+
         function nowDate() {
           var now = new Date;
           var myYear = now.getFullYear();
-          var myMonth = now.getMonth()+1;
+          var myMonth = now.getMonth() + 1;
           var myDate = now.getDate();
           var myHours = now.getHours();
           var myMinutes = now.getMinutes();
@@ -75,14 +77,34 @@
           myHours = myHours >= 10 ? myHours : "0" + myHours;
           myMinutes = myMinutes >= 10 ? myMinutes : "0" + myMinutes;
           mySeconds = mySeconds >= 10 ? mySeconds : "0" + mySeconds;
-          myTime = myYear + "/" + myMonth + "/" + myDate + " " + myHours + ":" + myMinutes+":"+mySeconds;
+          myTime = myYear + "/" + myMonth + "/" + myDate + " " + myHours + ":" + myMinutes + ":" + mySeconds;
         }
-        const timeBox=this.$refs.timeBox;
+
+        const timeBox = this.$refs.timeBox;
         setInterval(function () {
           nowDate();
           $(timeBox).text(myTime)
-        },1000);
+        }, 1000);
       }
+    },
+    data() {
+      return {
+        dataArr: []
+      }
+    },
+    created() {
+      /*加载数据库的商品*/
+      this.$axios.get("/api/loadAdmin.do",{params:{u_id:u_id}})
+        .then((res) => {
+          // console.log(res.data)
+          var dataArr = res.data.map(function (item) {
+            return {
+              name: item.a_name,
+              type: item.a_levels
+            }
+          });
+          this.dataArr = dataArr;
+        });
     }
   }
 </script>
@@ -141,11 +163,12 @@
     position: absolute;
     margin-right: 20px;
     z-index: 99;
-  }
-
-  #topNav ul li:nth-child(3) .personImg img {
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
+    margin-top: 16px;
+    border-radius: 50%;
+    background: url("../../assets/user.png");
+    background-size: 100%;
   }
 
   #topNav ul li:nth-child(3) .dropdownMenu {
@@ -186,9 +209,9 @@
   }
 
   #topNav .el-icon-arrow-down {
-    left: 140px;
+    left: 130px;
     font-size: 14px;
-    margin-top: -3px;
+    top: 40px;
   }
 
   #topNav .el-dropdown-link {
