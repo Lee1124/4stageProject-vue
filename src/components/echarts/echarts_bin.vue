@@ -110,7 +110,7 @@
 <style scoped>
   #eCharts2 {
     width: 475px;
-    height: 280px;
+    height: 300px;
     background-color: #fff;
     border-radius: 5px;
     padding-top: 10px;

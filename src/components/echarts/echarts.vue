@@ -96,10 +96,10 @@
 <style scoped>
   #eCharts {
     width: 475px;
-    height: 280px;
+    height: 300px;
     background-color: #fff;
     border-radius: 5px;
-    padding-top: 15px;
+    padding-top: 20px;
     padding-left: 6px;
     box-sizing: border-box;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
