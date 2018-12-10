@@ -2,7 +2,7 @@
   <div id="app">
 
     <div style="height: 90px; border-bottom:1px solid grey;">
-      <p>发布公告</p>
+      <p class="p_title">发布公告</p>
     </div>
     <div class="demo-input-suffix">
       <p class="g">公告名称：</p>
@@ -97,7 +97,7 @@
     padding: 0;
   }
 
-  p {
+  .p_title {
     font-size: 18px;
     padding-top: 34px;
     text-align: left;
@@ -107,6 +107,7 @@
   .g {
     padding-top: 40px;
     font-size: 14px;
+    text-align: left;
   }
 
   .inp {
