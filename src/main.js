@@ -7,6 +7,10 @@ import router from './router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 /*==========使用elementUI的组件==========*/
+
+import echarts from 'echarts' //引入echarts
+Vue.prototype.$echarts = echarts //引入组件
+
 Vue.use(ElementUI);
 
 
