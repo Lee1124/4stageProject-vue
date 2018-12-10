@@ -179,6 +179,7 @@
           'Content-Type': 'multipart/form-data'
         }
       };
+
       let formData = new FormData();
       formData.append('file', this.file);
       formData.append('goods_id', this.goods_id);
