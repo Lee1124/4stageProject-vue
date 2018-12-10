@@ -10,8 +10,9 @@
       </div>
     </div>
     <el-col :span="5">
-      <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+      <el-menu default-active="0" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
                background-color="white"
+               unique-opened
                text-color="grey" active-text-color="grey" router>
         <!--数据统计-->
         <el-menu-item index="/" class="cedao liHover">
@@ -217,5 +218,8 @@
     margin-top: -10px;
   }
 
+  .el-menu-item.is-active {
+    background-color: #f5f7fa !important;
+  }
 
 </style>
