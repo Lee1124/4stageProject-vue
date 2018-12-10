@@ -85,10 +85,12 @@
 
   .data_table_02_class {
     background: linear-gradient(to right, #90caf9, #047edf 99%);
+    padding:13px 40px;
   }
 
   .data_table_03_class {
     background: linear-gradient(to right, #84d9d2, #07cdae);
+    padding:13px 40px;
   }
 
 </style>
